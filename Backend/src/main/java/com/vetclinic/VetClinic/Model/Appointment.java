@@ -1,30 +1,31 @@
 package com.vetclinic.VetClinic.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "vets")
+@Table(name = "appointment")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Vet {
+public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(name = "appointment_date")
+    private LocalDate appointmentDate;
 
-    @Column(name = "number_document")
-    private Long numberDocument;
+    @ManyToOne
+    @JoinColumn(name = "pets_id")
+    private Pet pet;
 
-    @OneToMany(mappedBy = "vet")
-    @JsonIgnore
-    private List<Appointment> appointments;
+    @ManyToOne
+    @JoinColumn(name = "vets_id")
+    private Vet vet;
 }

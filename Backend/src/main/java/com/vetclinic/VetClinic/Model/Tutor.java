@@ -1,5 +1,6 @@
 package com.vetclinic.VetClinic.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class Tutor {
     @Column(name = "number_document")
     private Long numberDocument;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tutor_id")
+    @OneToMany(mappedBy = "tutor")
+    @JsonIgnore
     private List<Pet> pets;
 }
